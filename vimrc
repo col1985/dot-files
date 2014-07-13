@@ -1,6 +1,8 @@
 " Vim editor config settings
 
-execute pathogen#infect()      
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+
+execute pathogen#infect()
 
 set hlsearch                    " Highlight search term
 set incsearch                   " But do highlight as you type your search.
@@ -30,3 +32,6 @@ set expandtab                   " use spaces instead of tabs
 set smarttab                    " use tabs at the start of a line, spaces elsewhere
 set nowrap                      " don't wrap text
 "set scrolloff=8                 " Start scrolling when we're 8 lines away from margins
+
+" nerdTree config
+let g:nerdtree_tabs_open_on_console_startup=1     "init side bar on vim launch
