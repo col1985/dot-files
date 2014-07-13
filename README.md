@@ -5,7 +5,7 @@ that I use when working on a project.
 
 ## dot-files
 
-The dot files can be found in the `files` directory. This directory includes
+This directory includes;
 - **.aliases**
 - **.bash_prompt**
 - **.gitconfig**
