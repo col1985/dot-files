@@ -1,0 +1,11 @@
+alias STAT='git status'
+alias ADD='git add .;git commit -am'
+alias PUSH='git push origin'
+
+alias HEROKU='git push heroku master'
+
+alias startCloud='nodemon server.js'
+
+alias ports='lsof | grep -i tcp'
+
+alias cin='ls -l'
