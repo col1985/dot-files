@@ -1,4 +1,4 @@
-# Development Config & Workflow dot-files 
+# Dev Config & Workflow dot-files 
 
 So in my endeavour to automate and enhance my workflow, I created some useful dot files 
 that I use when working on a project.
