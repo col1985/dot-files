@@ -1,5 +1,7 @@
 " Vim editor config settings
 
+execute pathogen#infect()      
+
 set hlsearch                    " Highlight search term
 set incsearch                   " But do highlight as you type your search.
 set ignorecase                  " Make searches case-insensitive.
@@ -11,10 +13,11 @@ set showmode                    " Show current mode down the bottom
 set gcr=a:blinkon0              " Disable cursor blink
 set visualbell                  " No sounds
 set autoread                    " Reload files changed outside vim
-set ruler						" Turn on ruler
+set ruler                       " Turn on ruler
 set t_Co=256                    " enable 256-color mode.
-syntax enable                   " enable syntax highlighting (previously syntax on).
-colorscheme desert              " set colorscheme 
+syntax enable                   " enable syntax highlighting 
+" set background=dark             " for dark solarized theme
+colorscheme monokai             " set colorscheme 
 set laststatus=2                " last window always has a statusline
 filetype indent on              " activates indenting for files
 set ruler                       " Always show info along bottom.
