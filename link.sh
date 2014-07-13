@@ -1,8 +1,11 @@
 #!/bin/bash
+#
 ########################################################
 # .link.sh
+#
 # This script creates symlinks from the home directory 
 # to any desired dotfiles in ~/files
+#
 ########################################################
 
 # Variables
@@ -30,8 +33,12 @@ echo "...done"
 # code moves any existing dotfiles in homedir to 
 # files_old directory, then create symlinks 
 for file in $files; do
-    echo "Moving any existing dotfiles from ~ to $olddir"
+    printf "\n"
+    echo "********* Moving any existing dotfiles from ~ to $olddir *********"
+    printf "\n"
+
     mv ~/.$file ~/files_old/
-    echo "Creating symlink to $file in home directory."
+
+    echo "********* Creating symlink to $file in home directory *********"
     ln -s $dir/$file ~/.$file
 done
