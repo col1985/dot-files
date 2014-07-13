@@ -1,11 +1,41 @@
-alias STAT='git status'
-alias ADD='git add .;git commit -am'
-alias PUSH='git push origin'
+# Sample aliases used to speed up development workflow
 
+# Git commands aliases
+alias STAT="git status"
+alias ADD='git add .; git commit -am'
+alias PUSH='git push origin'
+alias PULL='git pull origin'
+alias CLONE="git clone git@github.com:col1985/"
+alias BRANCH='git branch'
+alias CLEAN='git clean -f'
+alias STASH='git stash'
+alias DSTASH='get stash drop'
+alias DEL='git branch -D'
+alias REMDEL='git push origin --delete'
+alias CHECK='git checkout'
+alias MERGE='git merge --no-ff'
 alias HEROKU='git push heroku master'
 
-alias startCloud='nodemon server.js'
+# call Sublime Text from command line
+export EDITOR='subl -w'
 
+# Cordova development alias
+alias PREP='cordova prepare'
+alias iOS='cordova prepare ios'
+alias AND='cordova prepare android'
+alias adbDebug='adb logcat | grep "Web Console'
+
+# Start local db and cache
+alias DB='mongod'
+alias RED='redis-server'
+
+# copy current RSA key
+alias SSH='pbcopy < ~/.ssh/id_rsa.pub'
+
+# start server
+alias start='nodemon server.js'
+alias pstart='python -mSimpleHTTPServer'
+
+# Util aliases
 alias ports='lsof | grep -i tcp'
-
-alias cin='ls -l'
+alias cin='ls -la'

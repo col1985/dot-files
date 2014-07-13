@@ -1,9 +1,9 @@
-# Shamelessly copied from https://github.com/gf3/dotfiles, with some personal chnages for pref!
+# Shamelessly copied from https://github.com/gf3/dotfiles and configured for personal pref
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-    export TERM=gnome-256color
+	export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
-    export TERM=xterm-256color
+	export TERM=xterm-256color
 fi
 
 if tput setaf 1 &> /dev/null; then
@@ -45,6 +45,7 @@ export BOLD
 export RESET
 export CYAN
 
+
 function parse_git_dirty() {
 	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo " * "
 }
@@ -53,8 +54,13 @@ function parse_git_branch() {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
-# Put the penultimate and current directory
+# Put the penultimate and current directory 
 # in the iterm tab
 #\[\e]1;\]$(basename $(dirname $PWD))/\W\[\a\]
 
-export PS1="\[$CYAN\]\u \[$RESET\] @ \[$ORANGE\] \w \$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\[$RESET\] on \")\[$PURPLE\]\$(parse_git_branch)\[$GREEN\]\n => \[$RESET\]"
+
+export PS1="\[$CYAN\]\u \[$RESET\] @ \[$ORANGE\] \w \$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\[$RESET\] on \")\[$PURPLE\]\$(parse_git_branch)\[${BOLD}$MAGENTA\]\n=> \[$RESET\]"
+
+
+#PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]/\W\[\a\]\[${CYAN}\]\u \[$RESET\]at \[$ORANGE\]\w\[$GREEN\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[${BOLD}$MAGENTA\]\n=> \[$RESET\]"
+#PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]/\W\[\a\]\[${CYAN}\]\u \[$RESET\]at \[$ORANGE\]\w\[$GREEN\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[${BOLD}$MAGENTA\]\n→ \[$RESET\]"
