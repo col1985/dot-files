@@ -24,6 +24,8 @@
     "prototypejs"   : false,
     "cordova"       : true,
     "phonegap"      : true,
+    "alert"         : true,
+    "confirm"       : true,
  
  
     // Development.
