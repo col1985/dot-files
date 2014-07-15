@@ -40,6 +40,15 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+" Beautify for js
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+
 " start nerdTree on vim launch
 autocmd vimenter * NERDTree
 
