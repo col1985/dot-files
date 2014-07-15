@@ -1,7 +1,6 @@
 " Vim editor config settings
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
-
 execute pathogen#infect()
 
 set hlsearch                    " Highlight search term
@@ -18,7 +17,7 @@ set autoread                    " Reload files changed outside vim
 set ruler                       " Turn on ruler
 set t_Co=256                    " enable 256-color mode.
 syntax enable                   " enable syntax highlighting 
-" set background=dark             " for dark solarized theme
+set background=dark            " for dark solarized theme
 colorscheme monokai             " set colorscheme 
 set laststatus=2                " last window always has a statusline
 filetype indent on              " activates indenting for files
@@ -31,7 +30,8 @@ set shiftround                  " always indent/outdent to the nearest tabstop
 set expandtab                   " use spaces instead of tabs
 set smarttab                    " use tabs at the start of a line, spaces elsewhere
 set nowrap                      " don't wrap text
-"set scrolloff=8                 " Start scrolling when we're 8 lines away from margins
 
-" nerdTree config
-let g:nerdtree_tabs_open_on_console_startup=1     "init side bar on vim launch
+" turn on omni completion 
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
