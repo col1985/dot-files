@@ -17,7 +17,7 @@ set autoread                    " Reload files changed outside vim
 set ruler                       " Turn on ruler
 set t_Co=256                    " enable 256-color mode.
 syntax enable                   " enable syntax highlighting 
-set background=dark            " for dark solarized theme
+set background=dark             " for dark solarized theme
 colorscheme monokai             " set colorscheme 
 set laststatus=2                " last window always has a statusline
 filetype indent on              " activates indenting for files
@@ -35,3 +35,21 @@ set nowrap                      " don't wrap text
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" start nerdTree on vim launch
+autocmd vimenter * NERDTree
+
+" close nerdTree when closing vim found on stackoverflow
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
