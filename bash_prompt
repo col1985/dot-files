@@ -81,11 +81,12 @@ On_IWhite="\[\033[0;107m\]"   # White
 # Various variables you might want for your PS1 prompt instead
 Time12h="\T"
 Time12a="\@"
-PathFull="\w"
+PathFull="\[$IYellow\]\w\[$Color_Off\]"
 PathShort="\W"
 
 # UserName="\u"
-UserName="[ colwob o_O ]"
+UserName="\[$IGreen\][ colwob \[$ICyan\]o_O\[$IGreen\] ]"
+prompt=""
 NewLine="\n"
 Jobs="\j"
 
@@ -124,14 +125,14 @@ function _git_prompt() {
       branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null ||
       echo HEAD`)"
     fi
-    echo "\[$Color_Off\] on \[$ansi\]$branch\[\e[0m\] \$(parse_git_branch) "
+    echo "\[$Color_Off\]on \[$ansi\]$branch\[\e[0m\] \$(parse_git_branch)"
   fi
 }
 
 function report_status() {
   RET_CODE=$?
   if [[ $RET_CODE -ne 0 ]] ; then
-    echo "\[$Color_Off\] on \[$IRed\]$RET_CODE\[$NC\] \$(parse_git_branch)  "
+    echo "\[$Color_Off\]on \[$IRed\]$RET_CODE\[$NC\] \$(parse_git_branch)"
   fi
 }
 
@@ -180,22 +181,36 @@ function parse_git_branch {
             branch="NO BRANCH"
         fi
 
-        echo " ( ${branch} ${state}${remote} ) "
+        echo "( ${branch}${state}${remote} )"
     fi
     return
 }
 
+PS1=$IBlack$Time12h" :: $UserName $PathFull\$(__git_ps1)\[$IBlue\]\$(get_sha)\[$Color_Off\] \$(parse_git_branch)\[$BIBlack\]$NewLine= > \[$IWhite\]"
 
-function parse_git_dirty() {
+parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != "working directory clean" ]] && echo"*"
 }
 
+__git_ps1 () {
+    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    if [ -n "$b" ]; then
+        echo " on (${b##refs/heads/}) - Ref -";
+    fi
+}
+
+get_dir() {
+    printf "%s" $(pwd | sed "s:$HOME:~:")
+}
+
+get_sha() {
+ git rev-parse --short  HEAD 2>/dev/null
+}
+
 # export PS1=$IBlack$Time12h$Color_Off ' :: \[$IGreen\]$UserName\[$IYellow\] $PathFull\[${parse_git_branch}\]${_PS1}'
-
-
 # export PS2="\[$NC\]> "
-export _PS1="\[$BIBlack\]$NewLine= > \[$IWhite\]"
-export PROMPT_COMMAND='_status=$(report_status);export PS1="$IBlack$Time12h$Color_Off :: \[$IGreen\]$UserName\[$IYellow\]$PathFull $(_git_prompt)${_status}${_PS1}";unset _status;'
+# export _PS1="\[$BIBlack\]$NewLine= > \[$IWhite\]"
+# export PROMPT_COMMAND='_status=$(report_status);export PS1="$IBlack$Time12h$Color_Off :: \[$IGreen\]$UserName\[$IYellow\] $PathFull$(_git_prompt)${_status}${_PS1}";unset _status;'
 
 
 
