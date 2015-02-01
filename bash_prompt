@@ -90,12 +90,6 @@ NewLine="\n"
 Jobs="\j"
 
 
-# export _PS1=$IBlack$Time12h$Color_Off" \[$ICyan\]$UserName\[$IWhite\] \[$IYellow\] $PathFull\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"\[$IWhite\] on \")\[$IPurple\]\$(parse_git_branch)\[$BIBlack\]\n=>\[$IWhite\]"
-
-# export _PS1=$IBlack$Time12h$Color_Off" :: \[$IGreen\]$UserName\[$IWhite\]\[$IYellow\] $PathFull\[$BIBlack\]\n=> \[$IWhite\]"
-
-export _PS1="\[$BIBlack\]\n=> \[$IWhite\]"
-
 # export PS1=$IBlack$Time12h$Color_Off'$(git branch &>/dev/null;\
 # if [ $? -eq 0 ]; then \
 #   echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
@@ -130,29 +124,15 @@ function _git_prompt() {
       branch="(`git describe --all --contains --abbrev=4 HEAD 2> /dev/null ||
       echo HEAD`)"
     fi
-    echo "\[$Color_Off\] on [ \[$ansi\]$branch\[\e[0m\] ] "
+    echo "\[$Color_Off\] on \[$ansi\]$branch\[\e[0m\] \$(parse_git_branch) "
   fi
 }
 
 function report_status() {
   RET_CODE=$?
   if [[ $RET_CODE -ne 0 ]] ; then
-    echo "\[$Color_Off\] on [ \[$IRed\]$RET_CODE\[$NC\] ] "
+    echo "\[$Color_Off\] on \[$IRed\]$RET_CODE\[$NC\] \$(parse_git_branch)  "
   fi
-}
-
-# export _PS1="\[$NC\][\u@\h \W]"
-# export PS2="\[$NC\]> "
-export PROMPT_COMMAND='_status=$(report_status);export PS1="$IBlack$Time12h$Color_Off :: \[$IGreen\]$UserName\[$IYellow\] $PathFull$(_git_prompt)${_status}${_PS1}";unset _status;'
-
-
-
-function parse_git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo"*"
-}
-
- function parse_git_branch() {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
 }
 
 function parse_git_branch {
@@ -200,10 +180,24 @@ function parse_git_branch {
             branch="NO BRANCH"
         fi
 
-        echo " ( ${branch} ${state}${remote})"
+        echo " ( ${branch} ${state}${remote} ) "
     fi
     return
 }
+
+
+function parse_git_dirty() {
+  [[ $(git status 2> /dev/null | tail -n1) != "working directory clean" ]] && echo"*"
+}
+
+# export PS1=$IBlack$Time12h$Color_Off ' :: \[$IGreen\]$UserName\[$IYellow\] $PathFull\[${parse_git_branch}\]${_PS1}'
+
+
+# export PS2="\[$NC\]> "
+export _PS1="\[$BIBlack\]$NewLine= > \[$IWhite\]"
+export PROMPT_COMMAND='_status=$(report_status);export PS1="$IBlack$Time12h$Color_Off :: \[$IGreen\]$UserName\[$IYellow\]$PathFull $(_git_prompt)${_status}${_PS1}";unset _status;'
+
+
 
 
 
