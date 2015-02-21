@@ -15,11 +15,12 @@ This directory includes;
 - **jshintrc** :: Current default JSHint settings 
 - **vimrc** :: Vim editor config file
 
-### Symlnk your root dot-files to directory
 
-This directory contains a shell script that will create **symlnk** to your `root` dotfiles
-on your device to where ever you clone this repo to on your machine simply enter the command 
-`./link.sh` from `root` of this directory create the links.   
+## bash prompt config
+
+Example of bash_prompt 
+
+![example_git_prompt](https://github.com/col1985/dot-files/raw/master/example_git_prompt.png) 
 
 ## Vim
 

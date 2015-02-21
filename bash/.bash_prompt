@@ -33,20 +33,26 @@ NewLine="\n"
 Jobs="\j"
 
 # Put the penultimate and current directory in the iterm tab
-currentDirectory="\[\e]1;\]$(basename $(dirname $PWD))/$PathShort\[\a\]"
+currentDirectory="\[\e]1;\]$PathShort\[\a\]"
 
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo " * "
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo ""
 }
 
+# print current branch to prompt
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/{ \1$(parse_git_dirty) } - /"
 }
 
+# prints short commit id to prompt
+# remove --short prop for full sha id
 function get_sha() {
  git rev-parse --short  HEAD 2>/dev/null
 }
 
+# Parse git status and adds icon to
+# bash_prompt if branch is dirty, behind remote,
+# or branches out of sync
 function git_branch_icon {
     git rev-parse --git-dir > /dev/null 2>&1
     if [ $? -eq 0 ]; then
@@ -97,6 +103,8 @@ function git_branch_icon {
     return
 }
 
+# shorten PWD based on size of
+# terminal window
 working_directory() {
   dir=`pwd`
   in_home=0
@@ -134,6 +142,8 @@ working_directory() {
   echo -e "${IYellow}$workingdir${Color_Off}"
 }
 
+# Putting it all together if conditional to change
+# PS2 color based on previous input
 prompt() {
   if [[ $? -eq 0 ]]; then
     exit_status="${ICyan}\n=>${Color_Off} "
@@ -141,6 +151,7 @@ prompt() {
     exit_status="${IRed}\n=>${Color_Off} "
   fi
 
+  # export custom bash_prompt config
     export PS1="${currentDirectory}${IBlack}${Time12h} :: ${UserName} $(working_directory)${Color_Off}\$([[ -n \$(git branch 2> /dev/null) ]] && echo \"${Color_Off} on \")${IGreen}\$(parse_git_branch)${Color_Off}${IBlue}$(get_sha)${Color_Off}$(git_branch_icon)$exit_status"
 }
 
