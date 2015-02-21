@@ -38,4 +38,11 @@ alias pstart='python -mSimpleHTTPServer'
 
 # Util aliases
 alias ports='lsof | grep -i tcp'
-alias cin='ls -la'
+alias cin='ls -lah'
+alias bashDebug='bash -x'
+
+alias st='git status -s'
+alias tree='tree --dirsfirst -C'
+alias t='tree -L 3'
+alias tr='tree -L 1'
+alias tr2='tree -L 2'
